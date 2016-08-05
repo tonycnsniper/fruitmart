@@ -12,6 +12,10 @@ a {
     color: #00B7FF;
 }
 
+main {
+    height: inherit;
+}
+
 .container-fluid {
     height: inherit;
 }
