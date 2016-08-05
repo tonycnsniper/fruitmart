@@ -4,7 +4,7 @@ body {
 }
 
 body {
-    padding: 50px;
+    padding: 3%;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -18,4 +18,25 @@ main {
 
 .container-fluid {
     height: inherit;
+}
+
+.width-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.clear-margin-top {
+    margin-top: 0;
+}
+
+.padding-left-top-7 {
+    padding: 7%;
+}
+
+.padding-left-7 {
+    padding-left: 7%;
+}
+
+main header h1 {
+    font-size: 60px;
 }
