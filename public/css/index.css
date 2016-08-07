@@ -29,14 +29,10 @@ main {
     margin-top: 0;
 }
 
-.padding-left-top-7 {
-    padding: 7%;
+.padding-left-top-5 {
+    padding: 5%;
 }
 
-.padding-left-7 {
-    padding-left: 7%;
-}
-
-main header h1 {
-    font-size: 60px;
+.padding-left-5 {
+    padding-left: 5%;
 }
