@@ -1,16 +1,11 @@
-var knex = require('knex')({
-    client: 'mysql',
-    connection: {
-        host: '127.0.0.1',
-        user: 'root',
-        password: 'Passw0rd',
-        database: 'fruitmart',
-        charset: 'utf8'
+'use strict'
+
+let Bookshelf = require('./database');
+
+class product extends Bookshelf.Model {
+    get tableName() {
+        return 'product';
     }
-})
+}
 
-var bookshelf = require('bookshelf')(knex);
-
-var product = bookshelf.Model.extend({
-    tableName: 'product'
-});
+module.exports = Bookshelf.model('Product', product);
