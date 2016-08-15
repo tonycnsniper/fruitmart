@@ -24,8 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //RESTFUL API explict
 app.get('/', routes.index);
 app.get('/users', routes.users.list);
-app.get('/api/list', routes.products.list)
-    // catch 404 and forward to error handler
+// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
