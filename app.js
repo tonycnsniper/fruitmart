@@ -1,4 +1,5 @@
 var express = require('express');
+var engine = require('ejs-locals');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -10,8 +11,10 @@ var routes = require('./routes');
 var app = express();
 
 // view engine setup
+app.engine('ejs', engine);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.locals.title = "Fruitmart - Enjoy fresh";
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -24,6 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //RESTFUL API explict
 app.get('/', routes.index);
 app.get('/users', routes.users.list);
+app.get('/login', routes.users.login);
+app.post('/login', routes.users.authentication);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

@@ -36,3 +36,9 @@ main {
 .padding-left-5 {
     padding-left: 5%;
 }
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
