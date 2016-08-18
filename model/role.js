@@ -1,11 +1,14 @@
 'use strict'
 
 let Bookshelf = require('./database');
+let Users = require('./user');
 
-class role extends Bookshelf.Model {
-    get tableName() {
-        return 'roles';
+
+let role = Bookshelf.Model.extends({
+    tableName: 'roles',
+    users: function() {
+        return this.hasMany(Users);
     }
-}
+})
 
 module.exports = Bookshelf.model('Role', role);

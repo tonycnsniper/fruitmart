@@ -2,10 +2,8 @@
 
 let Bookshelf = require('./database');
 
-class product extends Bookshelf.Model {
-    get tableName() {
-        return 'product';
-    }
-}
+var product = Bookshelf.Model.extends({
+    tableName: 'product'
+})
 
 module.exports = Bookshelf.model('Product', product);
