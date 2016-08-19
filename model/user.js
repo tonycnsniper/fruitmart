@@ -8,6 +8,6 @@ let user = Bookshelf.Model.extends({
     roles: function() {
         return this.hasMany(Roles)
     }
-})
+});
 
 module.exports = Bookshelf.model('User', user);
