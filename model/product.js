@@ -2,7 +2,7 @@
 
 let Bookshelf = require('./database');
 
-var product = Bookshelf.Model.extends({
+var product = Bookshelf.Model.extend({
     tableName: 'product'
 })
 

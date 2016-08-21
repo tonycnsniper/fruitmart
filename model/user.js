@@ -1,12 +1,17 @@
 'use strict'
 
 let Bookshelf = require('./database');
-let Roles = require('./role');
+let Role = require('./role');
 
-let user = Bookshelf.Model.extends({
-    tableName: 'users',
+let user = Bookshelf.Model.extend({
+    tableName: 'USER',
+
+    verifyPassword: function(password) {
+        return this.get('password') === password;
+    },
+
     roles: function() {
-        return this.hasMany(Roles)
+        return this.belongsToMany(Role)
     }
 });
 
