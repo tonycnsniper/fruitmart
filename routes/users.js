@@ -18,13 +18,18 @@ exports.authentication = function(req, res, next) {
         //.fetch()
         .fetch({ withRelated: ['roles'] })
         .then(function(user) {
-            var status = user.verifyPassword(req.body.password);
-            var roleName = user.related('roles').models.map(o => o.get('name')).find(o => o);
-            if (status)
+            var role = user.related('roles').models.find(role => role);
+            var roleName = role.get('name');
+            if (user.verifyPassword(req.body.password)) {
                 res.render('index', {
                     title: "Welcome " + roleName,
                     products: []
                 });
+                req.session.user = user;
+                req.session.admin = roleId;
+            } else {
+                res.send(401);
+            }
         }).catch(function(err) {
             res.send(err);
             next();
