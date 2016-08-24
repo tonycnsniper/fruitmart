@@ -21,8 +21,8 @@ exports.authentication = function(req, res, next) {
             var role = user.related('roles').models.find(role => role);
             var roleName = role.get('name');
             if (user.verifyPassword(req.body.password)) {
-                res.render('index', {
-                    title: "Welcome " + roleName,
+                res.render('saleAdmin', {
+                    title: "Welcome " + user.name,
                     products: []
                 });
                 req.session.user = user;
