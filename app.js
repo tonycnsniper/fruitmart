@@ -42,6 +42,8 @@ app.get('/', routes.index);
 app.get('/users', routes.users.list);
 app.get('/login', routes.users.login);
 app.post('/login', routes.users.authentication);
+app.get('/admin', authorize, routes.users.admin);
+app.post('/admin', authorize, routes.products.add);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

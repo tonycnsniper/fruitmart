@@ -10,7 +10,10 @@
                     <li><a href="#">About us</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/login">Sign In</a></li>
+                    <li>
+                        <a href="/login">Sign In
+                            <span><%= typeof username!='undefined' ? username : ''%></span></a>
+                    </li>
                 </ul>
             </div>
         </div>

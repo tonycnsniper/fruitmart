@@ -6,7 +6,16 @@ exports.list = function(req, res, next) {
 };
 
 exports.login = function(req, res, next) {
-    res.render('login', { title: 'FruitMart - Enjoy fresh' });
+    res.render('login', {
+        title: 'FruitMart - Enjoy fresh'
+    });
+}
+
+exports.admin = function(req, res, next) {
+    res.render('saleAdmin', {
+        title: req.session.admin,
+        username: req.session.user
+    })
 }
 
 exports.authentication = function(req, res, next) {
@@ -21,12 +30,9 @@ exports.authentication = function(req, res, next) {
             var role = user.related('roles').models.find(role => role);
             var roleName = role.get('name');
             if (user.verifyPassword(req.body.password)) {
-                res.render('saleAdmin', {
-                    title: "Welcome " + user.name,
-                    products: []
-                });
-                req.session.user = user;
-                req.session.admin = roleId;
+                req.session.user = user.get('name');
+                req.session.admin = roleName;
+                res.redirect('/admin');
             } else {
                 res.send(401);
             }

@@ -1,12 +1,10 @@
 <% layout('layout') -%>
     <div class="container-fluid width-fluid">
-        <header class="padding-left-top-5 bg-primary">
-            <h1 class="clear-margin-top"><%= title%></h1>
-        </header>
         <div class="content container">
             <div id="productList" class="row">
                 <% products.forEach(function(product) {%>
-                    <h2><a><%= product.name %></a></h2>
+                    <h2><span><%= product.name %></span></h2>
+                    <h5><span><%= product.price %></span></h5>
                     <% }); %>
             </div>
         </div>
