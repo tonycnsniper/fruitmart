@@ -13,7 +13,7 @@ var pg = require('pg');
  */
 
 var port = normalizePort(process.env.PORT || '3000');
-var DATABASE_URL = process.env.DATABASE_URL;
+var DATABASE_URL = process.env.DATABASE_URL || 'postgres://ubnmafjgbzgyjr:zIiRtm1wEjZAIo0mocLJgwS1BW@ec2-54-235-124-2.compute-1.amazonaws.com:5432/dbcmdkn560q5j';
 app.set('port', port);
 
 pg.defaults.ssl = true;
