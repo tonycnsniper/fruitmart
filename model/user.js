@@ -1,9 +1,9 @@
 'use strict'
 
-let Bookshelf = require('./database');
-let Role = require('./role');
+var Bookshelf = require('./database');
+var Role = require('./role');
 
-let user = Bookshelf.Model.extend({
+var user = Bookshelf.Model.extend({
     tableName: 'users',
 
     verifyPassword: function(password) {

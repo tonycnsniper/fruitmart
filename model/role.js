@@ -1,9 +1,9 @@
 'use strict'
 
-let Bookshelf = require('./database');
-let User = require('./user');
+var Bookshelf = require('./database');
+var User = require('./user');
 
-let role = Bookshelf.Model.extend({
+var role = Bookshelf.Model.extend({
     tableName: 'roles',
     users: function() {
         return this.belongsToMany(User);

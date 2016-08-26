@@ -1,6 +1,6 @@
 'use strict'
 
-let Bookshelf = require('./database');
+var Bookshelf = require('./database');
 
 var product = Bookshelf.Model.extend({
     tableName: 'product'

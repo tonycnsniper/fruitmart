@@ -1,6 +1,6 @@
 /*export users*/
-let User = require('../model/user');
-let Role = require('../model/role');
+var User = require('../model/user');
+var Role = require('../model/role');
 exports.list = function(req, res, next) {
 
 };
@@ -12,9 +12,9 @@ exports.sign = function(req, res, next) {
 }
 
 exports.signin = function(req, res, next) {
-    let name = req.body.username;
-    let email = req.body.email;
-    let password = req.body.password;
+    var name = req.body.username;
+    var email = req.body.email;
+    var password = req.body.password;
 
 
     new Role().query({ where: { name: 'user' } })
@@ -43,10 +43,10 @@ exports.admin = function(req, res, next) {
 }
 
 exports.authentication = function(req, res, next) {
-    let email = req.body.username;
-    let password = req.body.password;
+    var email = req.body.username;
+    var password = req.body.password;
 
-    let user = new User();
+    var user = new User();
     user.query({ where: { email: email } })
         //.fetch()
         .fetch({ withRelated: ['roles'] })

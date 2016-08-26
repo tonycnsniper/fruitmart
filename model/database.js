@@ -1,6 +1,6 @@
 'use strict'
 
-// let knex = require('knex')({
+// var knex = require('knex')({
 //     client: 'mysql',
 //     connection: {
 //         host: '127.0.0.1',
@@ -11,7 +11,7 @@
 //     }
 // });
 
-let knex = require('knex')({
+var knex = require('knex')({
     client: 'pg',
     connection: {
         host: 'ec2-54-235-124-2.compute-1.amazonaws.com',
