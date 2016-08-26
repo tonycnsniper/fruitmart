@@ -4,7 +4,7 @@ let Bookshelf = require('./database');
 let Role = require('./role');
 
 let user = Bookshelf.Model.extend({
-    tableName: 'USER',
+    tableName: 'users',
 
     verifyPassword: function(password) {
         return this.get('password') === password;

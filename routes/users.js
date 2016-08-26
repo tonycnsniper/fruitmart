@@ -5,9 +5,33 @@ exports.list = function(req, res, next) {
 
 };
 
+exports.sign = function(req, res, next) {
+    res.render('signup', {
+        title: 'FruitMart - Registration'
+    });
+}
+
+exports.signin = function(req, res, next) {
+    let name = req.body.username;
+    let email = req.body.email;
+    let password = req.body.password;
+
+
+    new Role().query({ where: { name: 'user' } })
+        .fetch().then(function(role) {
+            new User({ name: name, email: email, password: password })
+                .save().then(function(user) {
+                    user.roles().attach(role.get('id'));
+                    res.redirect('/login');
+                }).catch(function(error) {
+                    next();
+                })
+        })
+}
+
 exports.login = function(req, res, next) {
     res.render('login', {
-        title: 'FruitMart - Enjoy fresh'
+        title: 'FruitMart - Log in'
     });
 }
 
@@ -19,11 +43,11 @@ exports.admin = function(req, res, next) {
 }
 
 exports.authentication = function(req, res, next) {
-    let userName = req.body.username;
+    let email = req.body.username;
     let password = req.body.password;
 
     let user = new User();
-    user.query({ where: { name: req.body.username } })
+    user.query({ where: { email: email } })
         //.fetch()
         .fetch({ withRelated: ['roles'] })
         .then(function(user) {

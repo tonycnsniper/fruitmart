@@ -11,8 +11,11 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/login">Sign In
+                        <a href="/login">Log In
                             <span><%= typeof username!='undefined' ? username : ''%></span></a>
+                    </li>
+                    <li class="<%= typeof username === 'undefined' ? "show" : "hide" %>">
+                        <a href="/Signup">Sign In</a>
                     </li>
                 </ul>
             </div>

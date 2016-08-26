@@ -5,7 +5,7 @@ exports.add = function(req, res, next) {
     let price = req.body.price;
 
     new Product({ name: productName, price: price }).save().then(function() {
-        res.render('index', );
+        res.redirect('/');
     }).catch(function(error) {
         next();
     })
