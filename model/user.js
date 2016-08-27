@@ -10,7 +10,7 @@ var user = Bookshelf.Model.extend({
         return this.get('password') === password;
     },
 
-    roles: function() {
+    getRoles: function() {
         return this.belongsToMany(Role)
     }
 });

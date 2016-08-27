@@ -21,26 +21,31 @@ var knex = require('knex')({
         charset: 'utf8'
     }
 });
+knex.schema.dropTable('roles_users')
+    .dropTable('roles')
+    .dropTable('users').then(function() {});
 
-knex.schema.createTableIfNotExists('users', function(table) {
+knex.schema.createTable('users', function(table) {
     table.increments('id').primary();
     table.string('name');
     table.string('email', 128);
     table.string('password');
     table.timestamps();
-}).createTableIfNotExists('roles', function(table) {
+}).createTable('roles', function(table) {
     table.increments('id').primary();
     table.string('name');
-}).createTableIfNotExists('roles_users', function(table) {
+}).createTable('roles_users', function(table) {
     table.increments('id').primary();
-    table.integer('user_id');
-    table.integer('role_id');
-}).createTableIfNotExists('product', function(table) {
+    table.integer('user_id').references('users.id');
+    table.integer('role_id').references('roles.id');
+}).createTable('product', function(table) {
     table.increments('id').primary();
     table.string('name');
     table.decimal('price', 10, 2);
     table.timestamps();
 }).then(function() {});
+
+
 
 var bookshelf = require('bookshelf')(knex);
 

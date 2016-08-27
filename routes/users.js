@@ -17,15 +17,19 @@ exports.signin = function(req, res, next) {
     var password = req.body.password;
 
 
-    new Role().query({ where: { name: 'user' } })
+    Role.where({ name: 'user' })
         .fetch().then(function(role) {
-            new User({ name: name, email: email, password: password })
-                .save().then(function(user) {
-                    user.roles().attach(role.get('id'));
-                    res.redirect('/login');
-                }).catch(function(error) {
-                    next();
+            if (role === null) {
+                new Role({ name: 'user' }).save().then(function(role) {
+                    new User({ name: name, email: email, password: password })
+                        .save().then(function(user) {
+                            user.roles().attach(role.get('id'));
+                            res.redirect('/login');
+                        }).catch(function(error) {
+                            next();
+                        })
                 })
+            }
         })
 }
 
@@ -46,12 +50,11 @@ exports.authentication = function(req, res, next) {
     var email = req.body.username;
     var password = req.body.password;
 
-    var user = new User();
-    user.query({ where: { email: email } })
+    new User({ email: email })
         //.fetch()
-        .fetch({ withRelated: ['roles'] })
+        .fetch({ withRelated: ['getRoles'] })
         .then(function(user) {
-            var role = user.related('roles').models.find(role => role);
+            var role = user.related('getRoles').models.find(role => role);
             var roleName = role.get('name');
             if (user.verifyPassword(req.body.password)) {
                 req.session.user = user.get('name');
