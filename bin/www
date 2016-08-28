@@ -7,20 +7,18 @@
 var app = require('../app');
 var debug = require('debug')('fruitMart:server');
 var http = require('http');
-var pg = require('pg');
 /**
  * Get port from environment and store in Express.
  */
 
 var port = normalizePort(process.env.PORT || '3000');
-var DATABASE_URL = process.env.DATABASE_URL || 'postgres://ubnmafjgbzgyjr:zIiRtm1wEjZAIo0mocLJgwS1BW@ec2-54-235-124-2.compute-1.amazonaws.com:5432/dbcmdkn560q5j';
 app.set('port', port);
 
-pg.defaults.ssl = true;
-pg.connect(DATABASE_URL, function(err, client) {
-    if (err) throw err;
-    console.log('Connected to postgres! Getting schemas...');
-});
+// pg.defaults.ssl = true;
+// pg.connect(DATABASE_URL, function(err, client) {
+//     if (err) throw err;
+//     console.log('Connected to postgres! Getting schemas...');
+// });
 /**
  * Create HTTP server.
  */

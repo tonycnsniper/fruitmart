@@ -12,6 +12,10 @@ var user = Bookshelf.Model.extend({
 
     getRoles: function() {
         return this.belongsToMany(Role)
+    },
+
+    checkExistence: function(newUser) {
+
     }
 });
 

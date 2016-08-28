@@ -16,18 +16,15 @@ exports.signin = function(req, res, next) {
     var email = req.body.email;
     var password = req.body.password;
 
-
-    Role.where({ name: 'user' })
+    new Role({ name: 'user' })
         .fetch().then(function(role) {
-            if (role === null) {
-                new Role({ name: 'user' }).save().then(function(role) {
-                    new User({ name: name, email: email, password: password })
-                        .save().then(function(user) {
-                            user.roles().attach(role.get('id'));
-                            res.redirect('/login');
-                        }).catch(function(error) {
-                            next();
-                        })
+            var user = new User({ name: name, email: email, password: password });
+            if (user.isNew() === true) {
+                user.save({ name: name, email: email, password: password }).then(function(user) {
+                    user.getRoles().attach(role.get('id'));
+                    res.redirect('/login');
+                }).catch(function(error) {
+                    next();
                 })
             }
         })
