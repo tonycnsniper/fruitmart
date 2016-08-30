@@ -1,6 +1,7 @@
 /*export users*/
 var User = require('../model/user');
 var Role = require('../model/role');
+
 exports.list = function(req, res, next) {
 
 };
@@ -18,15 +19,22 @@ exports.signin = function(req, res, next) {
 
     new Role({ name: 'user' })
         .fetch().then(function(role) {
-            var user = new User({ name: name, email: email, password: password });
-            if (user.isNew() === true) {
-                user.save({ name: name, email: email, password: password }).then(function(user) {
-                    user.getRoles().attach(role.get('id'));
-                    res.redirect('/login');
-                }).catch(function(error) {
-                    next();
+            User.query({ where: { name: name, email: email, password: password } })
+                .fetch()
+                .then(function(user) {
+                    if (user == null) {
+                        new User({ name: name, email: email, password: password }).save().then(function(user) {
+                            user.getRoles().attach(role.get('id'));
+                            res.redirect('/login');
+                        })
+                    } else {
+                        user.getRoles().attach(role.get('id'));
+                        res.redirect('/login');
+                    }
                 })
-            }
+                .catch(function(error) {
+                    next();
+                });
         })
 }
 
@@ -47,8 +55,7 @@ exports.authentication = function(req, res, next) {
     var email = req.body.username;
     var password = req.body.password;
 
-    new User({ email: email })
-        //.fetch()
+    User.query({ where: { email: email } })
         .fetch({ withRelated: ['getRoles'] })
         .then(function(user) {
             var role = user.related('getRoles').models.find(role => role);
