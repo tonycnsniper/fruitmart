@@ -1,13 +1,17 @@
 <% layout('layout') -%>
     <div class="container jumbotron">
         <form method="POST" action="/admin">
-            <div class="form-group" 
-                <label for="inputProductName">Product Name:</label>
-                <input type="text" class="form-control" id="inputProductName" placeholder="name" name="name">
+            <div class="form-group" <label for="inputProductName">Product Name:</label>
+                <input type="text" class="form-control" id="inputProductName" placeholder="name" name="name" value="<%= typeof product === 'undefined' ? '' : product.name%>">
             </div>
             <div class="form-group">
                 <label for="inputPrice">Price:</label>
-                <input type="text" class="form-control" id="inputPrice" placeholder="price" name="price">
+                <input type="text" class="form-control" id="inputPrice" placeholder="price" name="price" value="<%= typeof product === 'undefined' ? '' : product.price%>">
             </div>
+            <div class="form-group">
+                <label for="inputInvertory">Invertory:</label>
+                <input type="text" class="form-control" id="inputInvertory" placeholder="invertory" name="invertory" value="<%= typeof product === 'undefined' ? '' : product.number%>">
+            </div>
+
             <button type="submit" class="btn btn-default">Add Product</button>
     </div>

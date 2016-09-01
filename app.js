@@ -21,12 +21,19 @@ app.locals.title = "Fruitmart - Enjoy fresh";
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser('3CCC4ACD-6ED1-4844-9217-82131BDCB239'));
 app.use(session({ secret: '2C44774A-D649-4D44-9535-46E296EF984F' }));
 app.use(cookieParser());
 app.use(session());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function(req, res, next) {
+    if (req.session && req.session.admin)
+        res.locals.admin = true;
+    next();
+});
+
 
 //Authorization
 var authorize = function(req, res, next) {
@@ -37,7 +44,6 @@ var authorize = function(req, res, next) {
 }
 
 
-//RESTFUL API explict
 app.get('/', routes.index);
 app.get('/users', routes.users.list);
 
@@ -49,6 +55,9 @@ app.post('/signup', routes.users.signin)
 
 app.get('/admin', authorize, routes.users.admin);
 app.post('/admin', authorize, routes.products.add);
+//RESTFUL API explict
+app.get('/api/search/:id', authorize, routes.products.search);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
