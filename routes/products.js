@@ -5,11 +5,18 @@ exports.add = function(req, res, next) {
     var price = req.body.price;
     var invertory = req.body.invertory;
 
-    new Product({ name: productName, price: price, number: invertory }).save().then(function() {
-        res.redirect('/');
-    }).catch(function(error) {
-        next();
-    })
+    Product.query({ where: { name: productName } })
+        .fetch()
+        .then(function(product) {
+            if (product == null) {
+                new Product({ name: productName, price: price, number: invertory }).save().then(function() {
+                    res.redirect('/');
+                }).catch(function(error) {
+                    next();
+                })
+            }
+        })
+
 }
 
 exports.search = function(req, res, next) {
