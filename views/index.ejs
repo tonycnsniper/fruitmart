@@ -1,39 +1,6 @@
 <% layout('layout') -%>
     <div class="container-fluid width-fluid">
         <div class="content container">
-            <div id="productList" class="row">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Product Id</th>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th>Invertory</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% products.forEach(function(product) {%>
-                            <tr>
-                                <th>
-                                    <%= product.id %>
-                                </th>
-                                <th>
-                                    <%= product.name %>
-                                </th>
-                                <th>
-                                    <%= product.price %>
-                                </th>
-                                <th>
-                                    <%= product.number %>
-                                </th>
-                                <th>
-                                    <a class="product_list_action" href="/api/search/<%= product.id %>">Edit</a>
-                                </th>
-                            </tr>
-                            <% }); %>
-                    </tbody>
-                </table>
-            </div>
+            
         </div>
     </div>

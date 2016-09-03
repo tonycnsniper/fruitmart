@@ -1,6 +1,42 @@
 <% layout('layout') -%>
     <div class="container jumbotron">
-        <form method="POST" action="/admin">
+        <div id="productList" class="row <%= typeof products === 'undefined' ? 'hide' : ''%>">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Invertory</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% typeof products === 'undefined' ? '' : products.forEach(function(product) {%>
+                        <tr>
+                            <th>
+                                <%= product.id %>
+                            </th>
+                            <th>
+                                <%= product.name %>
+                            </th>
+                            <th>
+                                <%= product.price %>
+                            </th>
+                            <th>
+                                <%= product.number %>
+                            </th>
+                            <th>
+                                <a class="product_list_action" href="/api/search/<%= product.id %>">Edit</a>
+                                <a class="product_list_action" href="/api/remove/<%= product.id %>">Delete</a>
+                            </th>
+                        </tr>
+                        <% }); %>
+                </tbody>
+            </table>
+            <button class="btn btn-default saleCreate">Create New</button>
+        </div>
+        <form id="saleAdminForm" method="POST" action="/admin " class="<%= typeof product === 'undefined' ? 'hide' : ''%>">
             <div class="form-group" <label for="inputProductName">Product Name:</label>
                 <input type="text" class="form-control" id="inputProductName" placeholder="name" name="name" value="<%= typeof product === 'undefined' ? '' : product.name%>">
             </div>
@@ -13,5 +49,11 @@
                 <input type="text" class="form-control" id="inputInvertory" placeholder="invertory" name="invertory" value="<%= typeof product === 'undefined' ? '' : product.number%>">
             </div>
 
-            <button type="submit" class="btn btn-default">Add Product</button>
+            <% if(typeof product === 'undefined') {%>
+
+                <button type="submit" class="btn btn-default">Add Product</button>
+
+                <%} else {%>
+                    <button type="submit" class="btn btn-default">Update Product</button>
+                    <%}%>
     </div>

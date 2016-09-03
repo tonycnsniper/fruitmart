@@ -44,13 +44,6 @@ exports.login = function(req, res, next) {
     });
 }
 
-exports.admin = function(req, res, next) {
-    res.render('saleAdmin', {
-        title: req.session.admin,
-        username: req.session.user
-    })
-}
-
 exports.authentication = function(req, res, next) {
     var email = req.body.username;
     var password = req.body.password;

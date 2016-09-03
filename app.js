@@ -53,10 +53,11 @@ app.post('/login', routes.users.authentication);
 app.get('/signup', routes.users.sign);
 app.post('/signup', routes.users.signin)
 
-app.get('/admin', authorize, routes.users.admin);
+app.get('/admin', authorize, routes.products.admin);
 app.post('/admin', authorize, routes.products.add);
 //RESTFUL API explict
 app.get('/api/search/:id', authorize, routes.products.search);
+app.get('/api/remove/:id', authorize, routes.products.remove);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

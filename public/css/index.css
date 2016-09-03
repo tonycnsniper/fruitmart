@@ -42,3 +42,7 @@ main {
     justify-content: center;
     align-content: center;
 }
+
+.jumbotron {
+    background-color: transparent;
+}
