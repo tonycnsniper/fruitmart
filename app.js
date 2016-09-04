@@ -62,7 +62,7 @@ app.get('/api/search/:id', authorize, routes.products.search);
 app.get('/api/remove/:id', authorize, routes.products.remove);
 
 app.post('/api/addOrder/:id', authorize, routes.orders.update);
-
+app.get('/api/orderListCount', authorize, routes.orders.count);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

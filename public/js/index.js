@@ -11,17 +11,26 @@ var saleCancelAction = function() {
 var addProductInCart = function() {
 
     let productId = $(this.parentElement).attr('productId');
-    $.ajax({
+    var promise = $.ajax({
         url: '/api/addOrder/' + productId,
         type: 'POST',
         success: function(status) {
-            if (status == 'SUCCESS') {
-                let originNumber = parseInt($('.cart-number').text());
-                let newNumber = originNumber + 1;
-                $('.cart-number').text(newNumber.toString());
-            } else if (status != 'ERROR') {
+            if (status != 'ERROR' && status != 'SUCCESS') {
                 window.location = '/login';
             }
+        }
+    });
+
+    promise.then(loadCartNumber);
+}
+
+var loadCartNumber = function() {
+    $.ajax({
+        url: '/api/orderListCount',
+        type: 'GET',
+        success: function(data) {
+            if (data !== "NaN" && isNaN(parseInt(data)) === false)
+                $('.cart-number').text(data);
         }
     })
 }
@@ -41,6 +50,7 @@ var listAllProducts = function() {
 
 $(document).ready(function() {
     listAllProducts();
+    loadCartNumber();
     $('.saleCreate').on('click', createItem);
     $('.saleCancel').on('click', saleCancelAction);
 })
