@@ -2,6 +2,7 @@
 
 var Bookshelf = require('./database');
 var Role = require('./role');
+var Order = require('./order');
 
 var user = Bookshelf.Model.extend({
     tableName: 'users',
@@ -14,8 +15,8 @@ var user = Bookshelf.Model.extend({
         return this.belongsToMany(Role)
     },
 
-    checkExistence: function(newUser) {
-
+    shoppingOrder: function() {
+        return this.hasMany(Order);
     }
 });
 

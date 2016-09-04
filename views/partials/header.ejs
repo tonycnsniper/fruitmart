@@ -7,16 +7,18 @@
             <ul class="nav navbar-nav">
                 <li><a href="#">Category</a></li>
                 <li><a href="#">About us</a></li>
-                <li class="<%= typeof role === 'undefined' ? 'hide' : 'show' %>">
-                    <a href="/admin">Seller Center</a>
-                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <button class="btn btn-primary navbar-text" type="button">
+                        Shopping Cart <span class="badge cart-number">0</span>
+                    </button>
+                </li>
                 <li>
                     <a href="/login">Log In
                             <span><%= typeof username!='undefined' ? username : ''%></span></a>
                 </li>
-                <li class="<%= typeof username === 'undefined' ? " show " : "hide " %>">
+                <li class="<%= typeof username === 'undefined' ? 'show' : 'hide' %>">
                     <a href="/Signup">Sign In</a>
                 </li>
             </ul>

@@ -1,5 +1,6 @@
 exports.users = require('./users');
 exports.products = require('./products');
+exports.orders = require('./orders');
 
 /* export index function */
 exports.index = function(req, res, next) {

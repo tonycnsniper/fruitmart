@@ -1,0 +1,16 @@
+<div class="row <%= typeof products === 'undefined' ? 'hide' : ''%>">
+    <% typeof products === 'undefined' ? '' : products.forEach(function(product) {%>
+        <div class="col-md-6 center clear-lr-padding">
+            <div class="jumbotron card">
+                <div class="productTitle">
+                    <%=product.name%>
+                </div>
+                <div class="productPrice">
+                    <%=product.unit%>
+                        <%=product.price%>
+                </div>
+                <div class="productBuy" productId=<%=product.id%>><a>Buy</a></div>
+            </div>
+        </div>
+        <%})%>
+</div>

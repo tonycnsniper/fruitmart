@@ -40,14 +40,16 @@ var authorize = function(req, res, next) {
     if (req.session && req.session.admin)
         return next();
     else
-        return res.send(401);
+        return res.redirect('/login');
 }
 
 
 app.get('/', routes.index);
-app.get('/users', routes.users.list);
+app.get('/listAll', routes.products.list);
 
+app.get('/users', routes.users.list);
 app.get('/login', routes.users.login);
+
 app.post('/login', routes.users.authentication);
 
 app.get('/signup', routes.users.sign);
@@ -58,6 +60,8 @@ app.post('/admin', authorize, routes.products.add);
 //RESTFUL API explict
 app.get('/api/search/:id', authorize, routes.products.search);
 app.get('/api/remove/:id', authorize, routes.products.remove);
+
+app.post('/api/addOrder/:id', authorize, routes.orders.update);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

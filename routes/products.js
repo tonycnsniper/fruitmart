@@ -1,5 +1,15 @@
 var Product = require('../model/product');
 
+exports.list = function(req, res, next) {
+    Product.fetchAll()
+        .then(function(list) {
+            res.render('productList', {
+                products: list.toJSON(),
+                username: req.session.user
+            })
+        })
+}
+
 exports.admin = function(req, res, next) {
     Product.fetchAll()
         .then(function(products) {
@@ -64,5 +74,4 @@ exports.search = function(req, res, next) {
             res.send(err);
             next();
         });
-
 }

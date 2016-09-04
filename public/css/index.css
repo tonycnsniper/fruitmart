@@ -12,8 +12,18 @@ a {
     color: #00B7FF;
 }
 
+nav.navbar.navbar-default.navbar-fixed-top {
+    margin-bottom: 0px;
+    max-height: 50px;
+}
+
+.navbar-right .navbar-text {
+    color: white;
+    margin: 8px;
+}
+
 main {
-    height: inherit;
+    height: calc(100% - 50px - 100px - 30px);
 }
 
 .container-fluid {
@@ -45,4 +55,55 @@ main {
 
 .jumbotron {
     background-color: transparent;
+}
+
+.navbar-right {
+    margin-right: 0px;
+}
+
+.clear-lr-padding {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.card {
+    width: 100%;
+    margin: 5px;
+    border: 1px solid #CECECE;
+}
+
+.jumbotron.card {
+    border-radius: 0px;
+}
+
+.productTitle {
+    font-size: 48px;
+    font-weight: bold;
+    height: 50%;
+}
+
+.productPrice {
+    font-size: 14px;
+}
+
+.productBuy {
+    font-size: 24px;
+    font-weight: bolder;
+    color: #b32a2a;
+    font-family: Helvetica;
+    text-align: right;
+}
+
+.productBuy a {
+    color: #b32a2a;
+}
+
+.productBuy a:hover,
+.productBuy a:focus {
+    text-decoration: none;
+}
+
+.productBuy a:hover,
+.productBuy a:focus {
+    cursor: pointer;
 }
