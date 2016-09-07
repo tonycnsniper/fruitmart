@@ -3,6 +3,20 @@ var Product = require('../model/product');
 var User = require('../model/user');
 var OrderList = require('../model/orderlist');
 
+
+exports.list = function(req, res, next) {
+    OrderList.fetchAll()
+        .then(list => {
+            if (list == null) next();
+            else {
+                Promise.all()
+            }
+        }).catch(error => {
+            res.end(error);
+        })
+}
+
+
 exports.count = function(req, res, next) {
     User.query({ where: { name: req.session.user } })
         .fetch({ withRelated: ['shoppingOrder', 'shoppingOrder.orderlist'], require: true })

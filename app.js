@@ -57,6 +57,8 @@ app.post('/signup', routes.users.signin)
 
 app.get('/admin', authorize, routes.products.admin);
 app.post('/admin', authorize, routes.products.add);
+
+app.get('/order', authorize, routes.orders.list);
 //RESTFUL API explict
 app.get('/api/search/:id', authorize, routes.products.search);
 app.get('/api/remove/:id', authorize, routes.products.remove);
