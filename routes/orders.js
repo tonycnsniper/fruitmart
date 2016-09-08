@@ -6,13 +6,20 @@ var OrderList = require('../model/orderlist');
 
 exports.list = function(req, res, next) {
     OrderList.fetchAll()
-        .then(list => {
-            if (list == null) next();
-            else {
-                Promise.all()
-            }
-        }).catch(error => {
-            res.end(error);
+        .then(lists => {
+            let newList = [];
+            Promise.all(lists.map(list => {
+                return new Product({ id: list.get('product_id') }).fetch().then(product => {
+                    newList.push({
+                        id: list.get('id'),
+                        product: product.get('name'),
+                        created_at: list.get('created_at'),
+                        number: list.get('number'),
+                    });
+                })
+            })).then(data => {
+                console.log(data);
+            })
         })
 }
 
