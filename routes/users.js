@@ -2,6 +2,12 @@
 var User = require('../model/user');
 var Role = require('../model/role');
 
+exports.logout = function(req, res, next) {
+    if (req.session !== null)
+        req.session.destroy();
+    res.redirect('/');
+}
+
 exports.list = function(req, res, next) {
 
 };

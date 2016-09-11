@@ -51,7 +51,7 @@ app.get('/users', routes.users.list);
 app.get('/login', routes.users.login);
 
 app.post('/login', routes.users.authentication);
-
+app.get('/logout', routes.users.logout);
 app.get('/signup', routes.users.sign);
 app.post('/signup', routes.users.signin)
 

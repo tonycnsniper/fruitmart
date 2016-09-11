@@ -5,20 +5,42 @@ var OrderList = require('../model/orderlist');
 
 
 exports.list = function(req, res, next) {
-    OrderList.fetchAll()
-        .then(lists => {
-            let newList = [];
-            Promise.all(lists.map(list => {
-                return new Product({ id: list.get('product_id') }).fetch().then(product => {
-                    newList.push({
-                        id: list.get('id'),
-                        product: product.get('name'),
-                        created_at: list.get('created_at'),
-                        number: list.get('number'),
-                    });
-                })
-            })).then(data => {
-                console.log(data);
+    User.where({ name: req.session.user })
+        .fetch({ withRelated: ['shoppingOrder', 'shoppingOrder.orderlist', 'shoppingOrder.products'] })
+        .then(user => {
+            let orders = user.related('shoppingOrder').find(order => order);
+            let products = orders.related('products').models;
+            let productsNumber = orders.related('orderlist').models;
+            let resultList = [];
+            products.forEach(product => {
+                let resultProduct = productsNumber.find(item => item.get('product_id') == product.get('id'));
+                if (resultProduct != null) {
+                    resultList.push({
+                        name: product.get('name'),
+                        price: product.get('price'),
+                        number: resultProduct.get('number'),
+                        value: product.get('price') * resultProduct.get('number'),
+                        created_at: resultProduct.get('created_at').toISOString().replace('T', ' ').replace('.000Z', '')
+                    })
+                }
+            })
+            resultList.forEach((item, index) => item.id = (index + 1));
+            let totalNum = resultList.map(item => item.number).length > 0 ?
+                resultList.map(item => item.number).reduce((a, b) => a + b, 0) : 0;
+            let totalAccount = resultList.map(item => item.value).length > 0 ?
+                resultList.map(item => item.value).reduce((a, b) => a + b, 0) : 0;
+            resultList.push({
+                id: '',
+                name: 'Total',
+                price: '',
+                number: totalNum,
+                value: totalAccount,
+                created_at: ''
+            });
+            res.render('order', {
+                title: 'Fruitmart - Order Details',
+                products: resultList,
+                username: req.session.user
             })
         })
 }

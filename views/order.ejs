@@ -1,0 +1,42 @@
+<% layout('layout') -%>
+    <div class="container jumbotron">
+        <div id="productList" class="row <%= typeof products === 'undefined' ? 'hide' : ''%>">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Number</th>
+                        <th>Sum</th>
+                        <th>OrderDate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% typeof products === 'undefined' ? '' : products.forEach(function(product) {%>
+                        <tr>
+                            <td>
+                                <%= product.id %>
+                            </td>
+                            <td>
+                                <%= product.name %>
+                            </td>
+                            <td>
+                                <%= product.price %>
+                            </td>
+                            <td>
+                                <%= product.number %>
+                            </td>
+                            <td>
+                                <%= product.value %>
+                            </td>
+                            <td>
+                                <%= product.created_at %>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+    </div>

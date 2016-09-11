@@ -10,14 +10,18 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <button class="btn btn-primary navbar-text" type="button">
+                    <button class="btn btn-primary navbar-text" type="button" onClick="location.href='/order'">
                         Shopping Cart <span class="badge cart-number">0</span>
                     </button>
                 </li>
                 <li>
-                    <a href="/login">Log In
-                            <span><%= typeof username!='undefined' ? username : ''%></span></a>
+                    <a href="/login">Log
+                            <span><%= typeof username!='undefined' ? 'in as ' + username : 'In'%></span></a>
                 </li>
+                <li class="<%= typeof username !== 'undefined' ? 'show' : 'hide'%>">
+                    <a href="/logout">Log out</span></a>
+                </li>
+
                 <li class="<%= typeof username === 'undefined' ? 'show' : 'hide' %>">
                     <a href="/Signup">Sign In</a>
                 </li>
