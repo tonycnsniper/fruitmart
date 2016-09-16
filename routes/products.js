@@ -31,14 +31,14 @@ exports.add = function(req, res, next) {
 
     if (req.session.productId != null) {
         new Product({ id: req.session.productId })
-            .save({ name: productName, price: price, number: invertory }, { patch: true })
+            .save({ name: productName, price: price, number: invertory, unit: '$' }, { patch: true })
             .then(function(product) {
                 res.redirect('/admin');
             }).catch(function(error) {
                 res.redirect('/admin');
             });
     } else {
-        new Product({ name: productName, price: price, number: invertory })
+        new Product({ name: productName, price: price, number: invertory, unit: '$' })
             .save()
             .then(function(product) {
                 res.redirect('/admin');

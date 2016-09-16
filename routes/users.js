@@ -25,7 +25,7 @@ exports.signin = function(req, res, next) {
 
     new Role({ name: 'user' })
         .fetch().then(function(role) {
-            User.query({ where: { name: name, email: email, password: password } })
+            new User({ name: name, email: email, password: password })
                 .fetch()
                 .then(function(user) {
                     if (user == null) {
