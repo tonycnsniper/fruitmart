@@ -57,7 +57,7 @@ exports.authentication = function(req, res, next) {
     User.query({ where: { email: email } })
         .fetch({ withRelated: ['getRoles'] })
         .then(function(user) {
-            var role = user.related('getRoles').models.find(role => role);
+            var role = user.related('getRoles').models.find(function(role ) {return role});
             var roleName = role.get('name');
             if (user.verifyPassword(req.body.password)) {
                 req.session.user = user.get('name');

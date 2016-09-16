@@ -1,7 +1,7 @@
 {
   "name": "fruitmart",
   "version": "0.1.6",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "node ./bin/www"
   },
@@ -19,5 +19,18 @@
     "mysql": "^2.11.1",
     "pg": "^6.1.0",
     "serve-favicon": "~2.3.0"
-  }
+  },
+  "description": "Introduction:",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tonycnsniper/fruitmart.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tonycnsniper/fruitmart/issues"
+  },
+  "homepage": "https://github.com/tonycnsniper/fruitmart#readme"
 }

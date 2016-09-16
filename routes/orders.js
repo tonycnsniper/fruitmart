@@ -7,13 +7,13 @@ var OrderList = require('../model/orderlist');
 exports.list = function(req, res, next) {
     User.where({ name: req.session.user })
         .fetch({ withRelated: ['shoppingOrder', 'shoppingOrder.orderlist', 'shoppingOrder.products'] })
-        .then(user => {
-            let orders = user.related('shoppingOrder').find(order => order);
+        .then(function(user) {
+            let orders = user.related('shoppingOrder').find(function(order) {return order });
             let products = orders.related('products').models;
             let productsNumber = orders.related('orderlist').models;
             let resultList = [];
-            products.forEach(product => {
-                let resultProduct = productsNumber.find(item => item.get('product_id') == product.get('id'));
+            products.forEach(function(product) {
+                let resultProduct = productsNumber.find(function(item) {item.get('product_id') == product.get('id')});
                 if (resultProduct != null) {
                     resultList.push({
                         name: product.get('name'),
@@ -24,11 +24,11 @@ exports.list = function(req, res, next) {
                     })
                 }
             })
-            resultList.forEach((item, index) => item.id = (index + 1));
-            let totalNum = resultList.map(item => item.number).length > 0 ?
-                resultList.map(item => item.number).reduce((a, b) => a + b, 0) : 0;
-            let totalAccount = resultList.map(item => item.value).length > 0 ?
-                resultList.map(item => item.value).reduce((a, b) => a + b, 0) : 0;
+            resultList.forEach( function(item, index) {item.id = (index + 1)});
+            let totalNum = resultList.map(function(item) {return item.number}).length > 0 ?
+                resultList.map(function(item) {return item.number}).reduce(function(a, b) {return a + b === undefined ? 0 : a + b }) : 0;
+            let totalAccount = resultList.map(function(item) { return item.value}).length > 0 ?
+                resultList.map(function(item) {return item.value }).reduce(function(a, b) {return a + b === undefined ? 0 : a + b }) : 0;
             resultList.push({
                 id: '',
                 name: 'Total',
@@ -49,14 +49,14 @@ exports.list = function(req, res, next) {
 exports.count = function(req, res, next) {
     User.query({ where: { name: req.session.user } })
         .fetch({ withRelated: ['shoppingOrder', 'shoppingOrder.orderlist'], require: true })
-        .then(user => {
+        .then(function(user) {
             let orders = user.related('shoppingOrder').models;
             if (orders.length === 0) {
                 return res.send("0");
             } else {
-                let order = orders.find(order => order);
+                let order = orders.find(function(order) { return order });
                 let lists = order.related('orderlist').models;
-                var listCount = lists.map(list => list.get('number')).reduce((a, b) => a + b, 0)
+                var listCount = lists.map(function(list) {return list.get('number')}).reduce(function(a, b) {return a + b === undefined ? 0 : a + b })
                 return res.send(listCount.toString());
             }
         });
@@ -78,20 +78,20 @@ exports.update = function(req, res, next) {
                             })
                     });
             } else {
-                let order = orders.find(order => order);
+                let order = orders.find(function(order) { return order});
                 OrderList.query({ where: { order_id: order.get('id'), product_id: productId } })
                     .fetch()
-                    .then(list => {
+                    .then(function(list) {
                         if (list == null) {
                             new OrderList({ order_id: order.get('id'), product_id: productId, number: 1 })
                                 .save()
-                                .then(newlist => {
+                                .then(function(newlist) {
                                     return res.send('SUCCESS');
                                 })
                         } else {
                             new OrderList({ id: list.get('id'), order_id: order.get('id'), product_id: productId })
                                 .save({ number: list.get('number') + 1 }, { patch: true })
-                                .then(newlist => {
+                                .then(function(newlist) {
                                     return res.send('SUCCESS');
                                 })
                         }
