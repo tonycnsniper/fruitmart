@@ -8,12 +8,12 @@ exports.list = function(req, res, next) {
     User.where({ name: req.session.user })
         .fetch({ withRelated: ['shoppingOrder', 'shoppingOrder.orderlist', 'shoppingOrder.products'] })
         .then(function(user) {
-            let orders = user.related('shoppingOrder').find(function(order) {return order });
-            let products = orders.related('products').models;
-            let productsNumber = orders.related('orderlist').models;
-            let resultList = [];
+            var orders = user.related('shoppingOrder').find(function(order) {return order });
+            var products = orders.related('products').models;
+            var productsNumber = orders.related('orderlist').models;
+            var resultList = [];
             products.forEach(function(product) {
-                let resultProduct = productsNumber.find(function(item) {item.get('product_id') == product.get('id')});
+                var resultProduct = productsNumber.find(function(item) {item.get('product_id') == product.get('id')});
                 if (resultProduct != null) {
                     resultList.push({
                         name: product.get('name'),
@@ -25,9 +25,9 @@ exports.list = function(req, res, next) {
                 }
             })
             resultList.forEach( function(item, index) {item.id = (index + 1)});
-            let totalNum = resultList.map(function(item) {return item.number}).length > 0 ?
+            var totalNum = resultList.map(function(item) {return item.number}).length > 0 ?
                 resultList.map(function(item) {return item.number}).reduce(function(a, b) {return a + b === undefined ? 0 : a + b }) : 0;
-            let totalAccount = resultList.map(function(item) { return item.value}).length > 0 ?
+            var totalAccount = resultList.map(function(item) { return item.value}).length > 0 ?
                 resultList.map(function(item) {return item.value }).reduce(function(a, b) {return a + b === undefined ? 0 : a + b }) : 0;
             resultList.push({
                 id: '',
@@ -50,12 +50,12 @@ exports.count = function(req, res, next) {
     User.query({ where: { name: req.session.user } })
         .fetch({ withRelated: ['shoppingOrder', 'shoppingOrder.orderlist'], require: true })
         .then(function(user) {
-            let orders = user.related('shoppingOrder').models;
+            var orders = user.related('shoppingOrder').models;
             if (orders.length === 0) {
                 return res.send("0");
             } else {
-                let order = orders.find(function(order) { return order });
-                let lists = order.related('orderlist').models;
+                var order = orders.find(function(order) { return order });
+                var lists = order.related('orderlist').models;
                 var listCount = lists.map(function(list) {return list.get('number')}).reduce(function(a, b) {return a + b === undefined ? 0 : a + b })
                 return res.send(listCount.toString());
             }
@@ -63,11 +63,11 @@ exports.count = function(req, res, next) {
 }
 
 exports.update = function(req, res, next) {
-    let productId = req.params.id;
+    var productId = req.params.id;
     User.query({ where: { name: req.session.user } })
         .fetch({ withRelated: ['shoppingOrder'], require: true })
         .then(function(user) {
-            let orders = user.related('shoppingOrder').models;
+            var orders = user.related('shoppingOrder').models;
             if (orders.length == 0) {
                 var order = new Order({ user_id: user.get('id') })
                     .save()
@@ -78,7 +78,7 @@ exports.update = function(req, res, next) {
                             })
                     });
             } else {
-                let order = orders.find(function(order) { return order});
+                var order = orders.find(function(order) { return order});
                 OrderList.query({ where: { order_id: order.get('id'), product_id: productId } })
                     .fetch()
                     .then(function(list) {
