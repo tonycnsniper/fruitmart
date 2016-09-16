@@ -13,7 +13,7 @@ exports.list = function(req, res, next) {
             var productsNumber = orders.related('orderlist').models;
             var resultList = [];
             products.forEach(function(product) {
-                var resultProduct = productsNumber.find(function(item) {item.get('product_id') == product.get('id')});
+                var resultProduct = productsNumber.find(function(item) {return item.get('product_id') == product.get('id')});
                 if (resultProduct != null) {
                     resultList.push({
                         name: product.get('name'),
