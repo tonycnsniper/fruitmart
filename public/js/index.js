@@ -48,6 +48,14 @@ var listAllProducts = function() {
     })
 }
 
+var increaseOrder = function() {
+
+}
+
+var decreaseOrder = function() {
+
+}
+
 $(document).ready(function() {
     listAllProducts();
     loadCartNumber();
